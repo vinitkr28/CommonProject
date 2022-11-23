@@ -2,6 +2,7 @@
 .gradle
 .idea
 keystores
+project_credentials
 /local.properties
 .DS_Store
 /build
