@@ -1,0 +1,89 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android-extensions'
+}
+
+android {
+    namespace 'vinit.module1'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "vinit.module1"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
+        println("1Common Project targetSdkVersion: " + project.targetSdkVersion)
+        println("2Common Project targetSdkVersion: $project.targetSdkVersion")
+        println '3Common Project targetSdkVersion: " + project.targetSdkVersion'
+        println "4Common Project targetSdkVersion: $project.targetSdkVersion"
+        project.logger.debug("5Common Project targetSdkVersion: $project.targetSdkVersion")
+        project.logger.debug("6Common Project targetSdkVersion: ${project.targetSdkVersion}")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+
+            buildConfigField "String", "BASE_URL_EU_DEVELOPMENT", "\"https://api.dev.eu.vef.retail.interact-lighting.com/api/\""
+            buildConfigField "String", "BASE_URL_CN_STAGING", "\"https://api.stg.cn.vef.retail.interact-lighting.com.cn/api/\""
+            buildConfigField "String", "BASE_URL_EU_STAGING", "\"https://api.stg.eu.vef.retail.interact-lighting.com/api/\""
+            buildConfigField "String", "BASE_URL_CN_PRODUCTION", "\"https://api.cn.vef.retail.interact-lighting.com.cn/api/\""
+            buildConfigField "String", "BASE_URL_US_PRODUCTION", "\"https://api.us.vef.retail.interact-lighting.com/api/\""
+            buildConfigField "String", "BASE_URL_EU_PRODUCTION", "\"https://api.eu.vef.retail.interact-lighting.com/api/\""
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+
+            buildConfigField "String", "BASE_URL_EU_DEVELOPMENT", "\"https://api.dev.eu.vef.retail.interact-lighting.com/api/\""
+            buildConfigField "String", "BASE_URL_CN_STAGING", "\"https://api.stg.cn.vef.retail.interact-lighting.com.cn/api/\""
+            buildConfigField "String", "BASE_URL_EU_STAGING", "\"https://api.stg.eu.vef.retail.interact-lighting.com/api/\""
+            buildConfigField "String", "BASE_URL_CN_PRODUCTION", "\"https://api.cn.vef.retail.interact-lighting.com.cn/api/\""
+            buildConfigField "String", "BASE_URL_US_PRODUCTION", "\"https://api.us.vef.retail.interact-lighting.com/api/\""
+            buildConfigField "String", "BASE_URL_EU_PRODUCTION", "\"https://api.eu.vef.retail.interact-lighting.com/api/\""
+            //noinspection GradlePath
+            applicationIdSuffix 'id_module1_debug'
+            versionNameSuffix 'version_name_module1_debug'
+            signingConfig signingConfigs.debug
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+
+
+    def room_version = "2.4.3"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+}
