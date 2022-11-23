@@ -13,15 +13,15 @@ buildscript {
     }
 
     println "*************** ### \$ START[${project.rootProject}] \$ ### ***************"
-    println "rootDir:\t\t\t${project.rootDir}"
-    println "user.dir: \t\t\t${System.getProperty('user.dir')}"
+    println "rootDir:\t\t\t\t\t${project.rootDir}"
+    println "user.dir: \t\t\t\t\t${System.getProperty('user.dir')}"
     Properties properties = new Properties()
     try {
         File credentialsFile = file("/project_credentials/pkg_versions.properties")
-        println "pkg_versions Path:\t${credentialsFile.absolutePath}"
+        print "pkg_versions.properties:\t${credentialsFile.absolutePath}"
 
-        if (credentialsFile.exists()) println "pkg_versions: \t\texists"
-        else println "pkg_versions: \t\tnot exists"
+        if (credentialsFile.exists()) println "\texists"
+        else println "\tnot exists"
 
         InputStream ins = new FileInputStream("${credentialsFile.absolutePath}")
         properties.load(ins)

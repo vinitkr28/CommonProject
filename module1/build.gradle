@@ -30,15 +30,15 @@ android {
 
     }
 
-    println "*************** ### \$\$\$ ### ***************"
+    println "*************** ### \$ START[${project.android.defaultConfig.applicationId}] \$ ### ***************"
 
-    println "projectDir:\t\t\t\t${project.projectDir}"
+    println "projectDir:\t\t\t\t\t\t${project.projectDir}"
     println "defaultPublishConfig:\t\t\t${project.defaultPublishConfig}"
 //    println "System:\t\t\t\t${System.properties.keySet()}"
-    println "buildTypes:\t\t\t\t${project.android.buildTypes}"
-    println "productFlavors:\t\t\t\t${project.android.productFlavors}"
-    println "defaultConfig:\t\t\t\t${project.android.defaultConfig}"
-    println "defaultConfig.applicationId:\t${project.android.defaultConfig.applicationId}"
+//    println "buildTypes:\t\t\t\t${project.android.buildTypes}"
+    println "productFlavors:\t\t\t\t\t${project.android.productFlavors}"
+//    println "defaultConfig:\t\t\t\t${project.android.defaultConfig}"
+    println "namespace:\t\t\t\t\t\t${android.namespace}"
 //    println "defaultConfig:\t\t\t\t${vari}"
     println "key1:\t\t\t\t${rootProject.ext.key1}"
     println "key2:\t\t\t\t${rootProject.ext.key2}"
@@ -56,8 +56,8 @@ android {
         properties.load(ins)
         ins.close()
 
-        println "properties key: \t\t${properties.keySet()}"
-        println "properties Values: \t\t${properties.values()}"
+//        println "properties key: \t\t${properties.keySet()}"
+//        println "properties Values: \t\t${properties.values()}"
 
         /*if (properties.containsKey("BASE_URL_EU_DEVELOPMENT"))
             println "BASE_URL_EU_DEVELOPMENT: ${properties.getProperty("BASE_URL_EU_DEVELOPMENT")}"
@@ -72,7 +72,7 @@ android {
         throw new GradleException("Missing credentials.properties file.\n${exception}")
     }
 
-    println "*************** ### \$\$\$ ### ***************"
+    println "*************** ### \$ END[${project.android.defaultConfig.applicationId}] \$ ### ***************"
 
 
 
