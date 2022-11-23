@@ -7,13 +7,41 @@ plugins {
 
 android {
     namespace 'vinit.module1'
-    compileSdk 33
+    compileSdk project.compileSdkVersion
+    defaultPublishConfig project.defaultPublishConfig
+
+    defaultConfig {
+        // Uniquely identifies the package for publishing.
+        applicationId "vinit.module1"
+
+        // Defines the minimum API level required to run the app.
+        minSdk project.minSdkVersion
+
+        // Specifies the API level used to test the app.
+        targetSdk project.targetSdkVersion
+
+        // Defines the version number of your app.
+        versionCode 1
+
+        // Defines a user-friendly version name for your app.
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
 
     println "*************** ### \$\$\$ ### ***************"
-    println "rootProject:\t\t\t${project.rootProject}"
-    println "rootDir:\t\t\t\t${project.rootDir}"
-    println "user.dir: \t\t\t\t${System.getProperty('user.dir')}"
+
     println "projectDir:\t\t\t\t${project.projectDir}"
+    println "defaultPublishConfig:\t\t\t${project.defaultPublishConfig}"
+//    println "System:\t\t\t\t${System.properties.keySet()}"
+    println "buildTypes:\t\t\t\t${project.android.buildTypes}"
+    println "productFlavors:\t\t\t\t${project.android.productFlavors}"
+    println "defaultConfig:\t\t\t\t${project.android.defaultConfig}"
+    println "defaultConfig.applicationId:\t${project.android.defaultConfig.applicationId}"
+//    println "defaultConfig:\t\t\t\t${vari}"
+    println "key1:\t\t\t\t${rootProject.ext.key1}"
+    println "key2:\t\t\t\t${rootProject.ext.key2}"
 
 
     Properties properties = new Properties()
@@ -46,20 +74,21 @@ android {
 
     println "*************** ### \$\$\$ ### ***************"
 
-    defaultConfig {
-        applicationId "vinit.module1"
-        minSdk 21
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+    signingConfigs {
+        release {
+            storeFile file("${properties.getProperty("RELEASE_STORE_FILE")}")
+            storePassword "${properties.getProperty("RELEASE_STORE_PASSWORD")}"
+            keyAlias "${properties.getProperty("RELEASE_KEY_ALIAS")}"
+            keyPassword "${properties.getProperty("RELEASE_KEY_PASSWORD")}"
+        }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            // Enables code shrinking for the release build type.
+            minifyEnabled true
 
             buildConfigField "String", "BASE_URL_EU_DEVELOPMENT", "${properties.getProperty("BASE_URL_EU_DEVELOPMENT")}"
             buildConfigField "String", "BASE_URL_CN_STAGING", "${properties.getProperty("BASE_URL_CN_STAGING")}"
@@ -69,6 +98,8 @@ android {
             buildConfigField "String", "BASE_URL_EU_PRODUCTION", "${properties.getProperty("BASE_URL_EU_PRODUCTION")}"
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
         }
 
         debug {
@@ -82,8 +113,8 @@ android {
             buildConfigField "String", "BASE_URL_US_PRODUCTION", "${properties.getProperty("BASE_URL_US_PRODUCTION")}"
             buildConfigField "String", "BASE_URL_EU_PRODUCTION", "${properties.getProperty("BASE_URL_EU_PRODUCTION")}"
             //noinspection GradlePath
-            applicationIdSuffix 'id_module1_debug'
-            versionNameSuffix 'version_name_module1_debug'
+            applicationIdSuffix 'debug'
+            versionNameSuffix '.00'
             signingConfig signingConfigs.debug
         }
     }
