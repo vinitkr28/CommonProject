@@ -13,27 +13,21 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "light_table", primaryKeys = ["RegionID", "ID"])
 data class Light(
 
-    @NonNull
     @ColumnInfo(name = "RegionID")
     val regionId: Int,
 
-    @NonNull
     @ColumnInfo(name = "ID")
     val id: Int,
 
-    @NonNull
     @ColumnInfo(name = "CustomerID")
     val customerID: Int,
 
-    @NotNull
     @ColumnInfo(name = "VenueID")
     val venueID: Int,
 
-    @NotNull
     @ColumnInfo(name = "FloorID")
     val floorID: Int,
 
-    @NotNull
     @ColumnInfo(name = "ShortName")
     val shortName: String,
 
@@ -43,7 +37,6 @@ data class Light(
     @ColumnInfo(name = "Longitude")
     val longitude: Double? = null,
 
-    @NotNull
     @ColumnInfo(name = "Latitude")
     val latitude: Double? = null,
 
@@ -68,15 +61,12 @@ data class Light(
     @ColumnInfo(name = "CLID")
     var cLID: Long? = null,
 
-    @NotNull
     @ColumnInfo(name = "OriginalCLID")
     var originalCLID: Long? = null,
 
-    @NotNull
     @ColumnInfo(name = "LastModifiedTime")
     val lastModifiedTime: String? = null,
 
-    @NotNull
     @ColumnInfo(name = "IsModified")
     var isModified: Boolean = false
 ) : Parcelable {

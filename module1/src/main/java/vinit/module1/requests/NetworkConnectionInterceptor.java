@@ -1,4 +1,4 @@
-package vinit.commonproject.requests;
+package vinit.module1.requests;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

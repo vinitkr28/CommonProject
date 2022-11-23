@@ -1,4 +1,4 @@
-package vinit.commonproject.requests;
+package vinit.module1.requests;
 
 import java.io.IOException;
 

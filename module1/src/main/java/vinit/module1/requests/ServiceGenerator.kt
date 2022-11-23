@@ -1,18 +1,17 @@
-package com.signify.indoor_navigation.site_enabler.requests
+package vinit.module1.requests
 
 import android.content.Context
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import vinit.commonproject.requests.NetworkConnectionInterceptor
-import vinit.module1.requests.ApiInterface
+import vinit.module1.BuildConfig
 import java.util.concurrent.TimeUnit
 
 
 object ServiceGenerator {
 
     fun requestApi(mContext: Context): ApiInterface {
-        var apiUrl = ""
+        var apiUrl = BuildConfig.BASE_URL_EU_DEVELOPMENT
 
 
         return Retrofit.Builder()

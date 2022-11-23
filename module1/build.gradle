@@ -4,9 +4,47 @@ plugins {
     id 'kotlin-android-extensions'
 }
 
+
 android {
     namespace 'vinit.module1'
     compileSdk 33
+
+    println "*************** ### \$\$\$ ### ***************"
+    println "rootProject:\t\t\t${project.rootProject}"
+    println "rootDir:\t\t\t\t${project.rootDir}"
+    println "user.dir: \t\t\t\t${System.getProperty('user.dir')}"
+    println "projectDir:\t\t\t\t${project.projectDir}"
+
+
+    Properties properties = new Properties()
+    try {
+        File credentialsFile = file("../project_credentials/credentials.properties")
+        println "credentialsFile Path:\t${credentialsFile.absolutePath}"
+
+        if (credentialsFile.exists()) println "credentialsFile: \t\texists"
+        else println "credentialsFile \t\tnot exists"
+
+        InputStream ins = new FileInputStream("${credentialsFile.absolutePath}")
+        properties.load(ins)
+        ins.close()
+
+        println "properties key: \t\t${properties.keySet()}"
+        println "properties Values: \t\t${properties.values()}"
+
+        /*if (properties.containsKey("BASE_URL_EU_DEVELOPMENT"))
+            println "BASE_URL_EU_DEVELOPMENT: ${properties.getProperty("BASE_URL_EU_DEVELOPMENT")}"
+        else println "BASE_URL_EU_DEVELOPMENT: not exists"*/
+
+        /*Set propertiesKeys = properties.keySet()
+        for (int a=0; a<propertiesKeys.size();a++){
+            println "${propertiesKeys[a]}: \t\t\t${properties.getProperty("${propertiesKeys[a]}")}"
+        }*/
+
+    } catch (Exception exception) {
+        throw new GradleException("Missing credentials.properties file.\n${exception}")
+    }
+
+    println "*************** ### \$\$\$ ### ***************"
 
     defaultConfig {
         applicationId "vinit.module1"
@@ -17,25 +55,18 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-
-        println("1Common Project targetSdkVersion: " + project.targetSdkVersion)
-        println("2Common Project targetSdkVersion: $project.targetSdkVersion")
-        println '3Common Project targetSdkVersion: " + project.targetSdkVersion'
-        println "4Common Project targetSdkVersion: $project.targetSdkVersion"
-        project.logger.debug("5Common Project targetSdkVersion: $project.targetSdkVersion")
-        project.logger.debug("6Common Project targetSdkVersion: ${project.targetSdkVersion}")
     }
 
     buildTypes {
         release {
             minifyEnabled false
 
-            buildConfigField "String", "BASE_URL_EU_DEVELOPMENT", "\"https://api.dev.eu.vef.retail.interact-lighting.com/api/\""
-            buildConfigField "String", "BASE_URL_CN_STAGING", "\"https://api.stg.cn.vef.retail.interact-lighting.com.cn/api/\""
-            buildConfigField "String", "BASE_URL_EU_STAGING", "\"https://api.stg.eu.vef.retail.interact-lighting.com/api/\""
-            buildConfigField "String", "BASE_URL_CN_PRODUCTION", "\"https://api.cn.vef.retail.interact-lighting.com.cn/api/\""
-            buildConfigField "String", "BASE_URL_US_PRODUCTION", "\"https://api.us.vef.retail.interact-lighting.com/api/\""
-            buildConfigField "String", "BASE_URL_EU_PRODUCTION", "\"https://api.eu.vef.retail.interact-lighting.com/api/\""
+            buildConfigField "String", "BASE_URL_EU_DEVELOPMENT", "${properties.getProperty("BASE_URL_EU_DEVELOPMENT")}"
+            buildConfigField "String", "BASE_URL_CN_STAGING", "${properties.getProperty("BASE_URL_CN_STAGING")}"
+            buildConfigField "String", "BASE_URL_EU_STAGING", "${properties.getProperty("BASE_URL_EU_STAGING")}"
+            buildConfigField "String", "BASE_URL_CN_PRODUCTION", "${properties.getProperty("BASE_URL_CN_PRODUCTION")}"
+            buildConfigField "String", "BASE_URL_US_PRODUCTION", "${properties.getProperty("BASE_URL_US_PRODUCTION")}"
+            buildConfigField "String", "BASE_URL_EU_PRODUCTION", "${properties.getProperty("BASE_URL_EU_PRODUCTION")}"
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -43,12 +74,13 @@ android {
         debug {
             debuggable true
 
-            buildConfigField "String", "BASE_URL_EU_DEVELOPMENT", "\"https://api.dev.eu.vef.retail.interact-lighting.com/api/\""
-            buildConfigField "String", "BASE_URL_CN_STAGING", "\"https://api.stg.cn.vef.retail.interact-lighting.com.cn/api/\""
-            buildConfigField "String", "BASE_URL_EU_STAGING", "\"https://api.stg.eu.vef.retail.interact-lighting.com/api/\""
-            buildConfigField "String", "BASE_URL_CN_PRODUCTION", "\"https://api.cn.vef.retail.interact-lighting.com.cn/api/\""
-            buildConfigField "String", "BASE_URL_US_PRODUCTION", "\"https://api.us.vef.retail.interact-lighting.com/api/\""
-            buildConfigField "String", "BASE_URL_EU_PRODUCTION", "\"https://api.eu.vef.retail.interact-lighting.com/api/\""
+
+            buildConfigField "String", "BASE_URL_EU_DEVELOPMENT", "${properties.getProperty("BASE_URL_EU_DEVELOPMENT")}"
+            buildConfigField "String", "BASE_URL_CN_STAGING", "${properties.getProperty("BASE_URL_CN_STAGING")}"
+            buildConfigField "String", "BASE_URL_EU_STAGING", "${properties.getProperty("BASE_URL_EU_STAGING")}"
+            buildConfigField "String", "BASE_URL_CN_PRODUCTION","${properties.getProperty("BASE_URL_CN_PRODUCTION")}"
+            buildConfigField "String", "BASE_URL_US_PRODUCTION", "${properties.getProperty("BASE_URL_US_PRODUCTION")}"
+            buildConfigField "String", "BASE_URL_EU_PRODUCTION", "${properties.getProperty("BASE_URL_EU_PRODUCTION")}"
             //noinspection GradlePath
             applicationIdSuffix 'id_module1_debug'
             versionNameSuffix 'version_name_module1_debug'
@@ -79,7 +111,6 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
 
 
     def room_version = "2.4.3"

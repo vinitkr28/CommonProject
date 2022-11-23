@@ -12,11 +12,37 @@ buildscript {
 
     }
 
+    println "*************** ### \$START[Project build.gradle]\$ ### ***************"
+    Properties properties = new Properties()
+    try {
+        File credentialsFile = file("/project_credentials/pkg_versions.properties")
+        println "pkg_versions Path:\t${credentialsFile.absolutePath}"
+
+        if (credentialsFile.exists()) println "pkg_versions: \t\texists"
+        else println "pkg_versions: \t\tnot exists"
+
+        InputStream ins = new FileInputStream("${credentialsFile.absolutePath}")
+        properties.load(ins)
+        ins.close()
+
+        println "properties key: \t${properties.keySet()}"
+        println "properties Value: \t${properties.values()}"
+
+        /*Set propertiesKeys = properties.keySet()
+        for (int a=0; a<propertiesKeys.size();a++){
+            println "${propertiesKeys[a]}: \t\t${properties.getProperty("${propertiesKeys[a]}")}"
+        }*/
+
+    } catch (Exception exception) {
+        throw new GradleException("Missing pkg_versions.properties file.\n${exception}")
+    }
+    println "*************** ### \$END[Project build.gradle]\$ ### ***************"
+
     project.ext {
         defaultPublishConfig = "release"
-        minSdkVersion = minSdk.toInteger()
-        targetSdkVersion = compileSdk.toInteger()
-        compileSdkVersion = compileSdk.toInteger()
+        minSdkVersion = "${properties.getProperty("minSdk")}".toInteger()
+        targetSdkVersion = "${properties.getProperty("compileSdk")}".toInteger()
+        compileSdkVersion = "${properties.getProperty("compileSdk")}".toInteger()
     }
 }
 
@@ -36,4 +62,8 @@ sonarqube {
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.login", "b75270993d772b4cc408b083cfa12417cba94e0e"
     }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
