@@ -1,7 +1,7 @@
 #### Add credentials properties file here.
 
 
-###credentials.properties
+### credentials.properties
 RELEASE_STORE_FILE=../project_credentials/keystores/xxxx.keystore
 RELEASE_STORE_PASSWORD=AAA
 RELEASE_KEY_PASSWORD=BBB
@@ -16,7 +16,7 @@ BASE_URL_US_PRODUCTION="URL5"
 BASE_URL_EU_PRODUCTION="URL6"
 
 
-###pkg_versions.properties
+### pkg_versions.properties
 kotlinVersion=1.7.20
 minSdk=21
 navigationVersion=2.3.0
