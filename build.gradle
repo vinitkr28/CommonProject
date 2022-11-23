@@ -1,10 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    repositories {
+    /*repositories {
         google()
         mavenCentral()
 
-    }
+    }*/
     dependencies {
         classpath "com.dicedmelon.gradle:jacoco-android:0.1.4"
         classpath "org.jacoco:org.jacoco.core:0.8.7"
@@ -44,6 +44,8 @@ buildscript {
         targetSdkVersion = "${properties.getProperty("compileSdk")}".toInteger()
         compileSdkVersion = "${properties.getProperty("compileSdk")}".toInteger()
     }
+
+    project.logger.debug("*************** ### \$[Project build.gradle]\$ ### ***************")
 }
 
 
