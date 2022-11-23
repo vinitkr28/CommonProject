@@ -7,6 +7,8 @@
 -> remove file or folder which is already added to the github.
 git rm -r --cached [FolderName]
 ```
+###### Reference:
+[Youtube1](https://www.youtube.com/watch?v=qSnjgEU6VwQ), [Youtube2](https://www.youtube.com/watch?v=tNkbBe6xfhQ), [Link1](https://www.freecodecamp.org/news/gitignore-file-how-to-ignore-files-and-folders-in-git/)
 
 
 
