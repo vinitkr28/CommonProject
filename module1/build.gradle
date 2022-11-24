@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
+    id "org.sonarqube"
 }
 
 
@@ -164,6 +165,21 @@ android {
     println "productFlavors:\t\t\t\t\t${project.android.productFlavors}"
     println "defaultConfig:\t\t\t\t${project.android.defaultConfig}"
     println "*************** ### \$ END[${project.android.defaultConfig.applicationId}] \$ ### ***************"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "Common Project"
+        property "sonar.projectKey", "CommonProject"
+        property "sonar.sources","src/main/java"
+        property "sonar.sourceEncoding", "UTF-8"
+//        property "sonar.exclusions", "src/main/java/com/foo/Foo.java"
+//        property "sonar.exclusions", build/**,\ bin/**,\ gradle/**,\ gradlew,\ gradlew.bat,\ *.gradle
+//        property "sonar.exclusions", "**/assets/**,**/test/**, ....
+//        property "sonar.coverage.exclusions", "**/assets/**, ..."
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "b75270993d772b4cc408b083cfa12417cba94e0e"
+    }
 }
 
 dependencies {
