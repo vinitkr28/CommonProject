@@ -35,9 +35,7 @@ android {
     println "projectDir:\t\t\t\t\t\t${project.projectDir}"
     println "defaultPublishConfig:\t\t\t${project.defaultPublishConfig}"
 //    println "System:\t\t\t\t${System.properties.keySet()}"
-//    println "buildTypes:\t\t\t\t${project.android.buildTypes}"
-    println "productFlavors:\t\t\t\t\t${project.android.productFlavors}"
-//    println "defaultConfig:\t\t\t\t${project.android.defaultConfig}"
+
     println "namespace:\t\t\t\t\t\t${android.namespace}"
 //    println "defaultConfig:\t\t\t\t${vari}"
     println "key1:\t\t\t\t${rootProject.ext.key1}"
@@ -71,9 +69,6 @@ android {
     } catch (Exception exception) {
         throw new GradleException("Missing credentials.properties file.\n${exception}")
     }
-
-    println "*************** ### \$ END[${project.android.defaultConfig.applicationId}] \$ ### ***************"
-
 
 
     signingConfigs {
@@ -109,7 +104,7 @@ android {
             buildConfigField "String", "BASE_URL_EU_DEVELOPMENT", "${properties.getProperty("BASE_URL_EU_DEVELOPMENT")}"
             buildConfigField "String", "BASE_URL_CN_STAGING", "${properties.getProperty("BASE_URL_CN_STAGING")}"
             buildConfigField "String", "BASE_URL_EU_STAGING", "${properties.getProperty("BASE_URL_EU_STAGING")}"
-            buildConfigField "String", "BASE_URL_CN_PRODUCTION","${properties.getProperty("BASE_URL_CN_PRODUCTION")}"
+            buildConfigField "String", "BASE_URL_CN_PRODUCTION", "${properties.getProperty("BASE_URL_CN_PRODUCTION")}"
             buildConfigField "String", "BASE_URL_US_PRODUCTION", "${properties.getProperty("BASE_URL_US_PRODUCTION")}"
             buildConfigField "String", "BASE_URL_EU_PRODUCTION", "${properties.getProperty("BASE_URL_EU_PRODUCTION")}"
             //noinspection GradlePath
@@ -118,6 +113,44 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "default"
+    productFlavors {
+
+        develop {
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            buildConfigField "String", "BUILD_VARIANT", "\"develop\""
+        }
+
+        staging {
+            applicationIdSuffix ".stg"
+            versionNameSuffix "-stg"
+            buildConfigField "String", "BUILD_VARIANT", "\"staging\""
+        }
+
+        production {
+            applicationIdSuffix ""
+            versionNameSuffix ""
+            buildConfigField "String", "BUILD_VARIANT", "\"production\""
+        }
+    }
+
+    applicationVariants.all { variant ->
+
+        def BASE_URL = ""
+
+        if (variant.getName().contains("develop")) {
+            BASE_URL = "https://localhost:8080.com/"
+        } else if (variant.getName().contains("staging")) {
+            BASE_URL = "https://stagingdomain.com/"
+        } else if (variant.getName().contains("production")) {
+            BASE_URL = "https://productdomain.com/"
+        }
+        variant.buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
+
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -125,6 +158,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+//    println "applicationVariants.all: \t${applicationVariants.all}"
+    println "buildTypes:\t\t\t\t${project.android.buildTypes}"
+    println "productFlavors:\t\t\t\t\t${project.android.productFlavors}"
+    println "defaultConfig:\t\t\t\t${project.android.defaultConfig}"
+    println "*************** ### \$ END[${project.android.defaultConfig.applicationId}] \$ ### ***************"
 }
 
 dependencies {
