@@ -2,7 +2,10 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
+//    id "${project.rootDir/sonar.gradle}"
 }
+
+apply from: "$project.rootDir/sonar.gradle"
 
 
 android {
@@ -163,6 +166,19 @@ android {
     println "buildTypes:\t\t\t\t${project.android.buildTypes}"
     println "productFlavors:\t\t\t\t\t${project.android.productFlavors}"
     println "defaultConfig:\t\t\t\t${project.android.defaultConfig}"
+
+//    To log at debug level (visible with builds using gradle --debug or lower)
+    project.logger.debug('my debug message')
+
+//    To log at info level (visible with gradle --info builds and lower)
+    project.logger.info('my info message')
+
+//    To log at lifecycle level (visible by default)
+    project.logger.lifecycle('my message visible by default')
+
+    logger.info("I am an {} log message", "info")
+// OR
+    project.logger.info("I am an {} log message", "info")
     println "*************** ### \$ END[${project.android.defaultConfig.applicationId}] \$ ### ***************"
 }
 

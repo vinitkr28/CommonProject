@@ -1,0 +1,66 @@
+apply plugin: "org.sonarqube"
+//project(":site_enabler") {
+sonarqube {
+    properties {
+        property "sonar.projectName", "Common Project"
+        property "sonar.projectKey", "CommonProject"
+        property "sonar.sources","src/main/java/vinit/module1"
+        //        property "sonar.sources","${project.rootDir}/site_enabler/**"
+//        property "sonar.sources","${project.rootDir}/site_enabler/src/main/java"
+//        property "sonar.sources","**/site_enabler/src/main/java/**"
+//        property "sonar.exclusions","${project.rootDir}/site_enabler/build/generated/source"
+//        property "sonar.inclusion","${project.rootDir}/site_enabler/src/main/java"
+//        property "sonar.sources","**/module1/**/"
+        property "sonar.sourceEncoding", "UTF-8"
+//        property "sonar.coverage.jacoco.xmlReportPaths", "$projectDir.parentFile.path/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+//        property "sonar.exclusions", "src/main/java/com/foo/Foo.java"
+//        property "sonar.exclusions", build/**,\ bin/**,\ gradle/**,\ gradlew,\ gradlew.bat,\ *.gradle
+//        property "sonar.exclusions", "**/assets/**,**/test/**, ....
+//        property "sonar.coverage.exclusions", "**/assets/**, ..."
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "b75270993d772b4cc408b083cfa12417cba94e0e"
+    }
+
+
+    //    println "codeCoverageReport:: ${projectDir.parentFile.path}/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+    println "codeCoverageReport::path: ${projectDir.parentFile.path}"
+    println "codeCoverageReport::absolutePath: ${projectDir.parentFile.absolutePath}"
+    println "codeCoverageReport::parentFile.exists(): ${projectDir.parentFile.exists()}"
+    println "rootDir: ${project.rootDir}"
+    println "codeCoverageReport::parentFile.exists(): ${project.rootDir}/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+
+    print "SiteEnabler: ${project.rootDir}/site_enabler/src/main/java"
+    if (file("${project.rootDir}/site_enabler/src/main/java").exists()) println "\texists" else println "\tnot exists"
+
+//    * - Match zero or more characters
+//    ** - Match zero or more directories
+//    ? - Match a single character
+
+    //https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle/
+    //https://sonarqube.inria.fr/sonarqube/documentation/project-administration/narrowing-the-focus/
+    //https://github.com/SonarSource/sonar-scanning-examples/tree/master/sonarqube-scanner-gradle/gradle-multimodule-coverage
+    //.\gradlew.bat clean build codeCoverageReport -Dsonar.host.url=http://localhost:9000 -Dsonar.login=admin -Dsonar.password=admin sonarqube
+}
+//}
+
+/*
+sonarqube {
+    properties {
+        property 'sonar.projectName', 'gradle-multimodule'
+        property "sonar.projectKey", "gradle-multimodule"
+        // Add other analysis parameters here if you don't
+        // want to add it to the Sonar scanner command line:
+        // property "sonar.host.url", "yoursonarqubeurl"
+        // property "sonar.login", "yourlogintoken"
+        // etc.
+    }
+}*/
+
+
+/*
+To skip SonarQube analysis for a particular subproject, set sonarqube.skipProject to true.
+project(":project2") {
+    sonarqube {
+        skipProject = true
+    }
+}*/

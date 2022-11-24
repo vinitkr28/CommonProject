@@ -69,17 +69,7 @@ plugins {
     id 'com.android.application' version '7.3.1' apply false
     id 'com.android.library' version '7.3.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
-    id "org.sonarqube" version "3.4.0.2513"
     id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion" apply false
-}
-
-sonarqube {
-    properties {
-        property "sonar.projectName", "Common Project"
-        property "sonar.projectKey", "CommonProject"
-        property "sonar.host.url", "http://localhost:9000"
-        property "sonar.login", "b75270993d772b4cc408b083cfa12417cba94e0e"
-    }
 }
 
 task clean(type: Delete) {
